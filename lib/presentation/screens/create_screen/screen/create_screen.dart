@@ -1,54 +1,16 @@
 import 'package:finance/core/themes/colors.dart';
 import 'package:finance/presentation/common_widgets/glass_container.dart';
 import 'package:finance/presentation/screens/create_screen/widget/amount_enter_card.dart';
+import 'package:finance/presentation/screens/create_screen/widget/expense_add_card.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NewTransactionScreen extends StatefulWidget {
-  const NewTransactionScreen({super.key});
-
-  @override
-  State<NewTransactionScreen> createState() => _NewTransactionScreenState();
-}
-
-class _NewTransactionScreenState extends State<NewTransactionScreen> {
-  // State variables
-  bool isExpense = true;
-  String selectedCategory = 'Transport';
-  DateTime selectedDate = DateTime(2026, 6, 30); // Default to date in image
-  final TextEditingController _amountController = TextEditingController(
-    text: '200',
-  );
-  final TextEditingController _descriptionController = TextEditingController();
-
-  final Color primaryDark = const Color(0xFF0F172A);
-  final Color textGrey = const Color(0xFF6B7280);
-  final Color inputBgColor = const Color(0xFFF3F4F6);
-
-  // Method to handle date picking
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2030),
-    );
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-      });
-    }
-  }
+class NewTransactionScreen extends ConsumerWidget {
+  final bool? isEdit;
+  const NewTransactionScreen({super.key, this.isEdit});
 
   @override
-  void dispose() {
-    _amountController.dispose();
-    _descriptionController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
@@ -146,7 +108,7 @@ class _NewTransactionScreenState extends State<NewTransactionScreen> {
                 children: [
                   AmountEnterCard(),
                   SizedBox(height: 20),
-                  _buildFormCard(),
+                  ExpenseAddCard(),
                 ],
               ),
             ),
@@ -163,266 +125,19 @@ class _NewTransactionScreenState extends State<NewTransactionScreen> {
               // Handle save action
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: primaryDark,
-              foregroundColor: Colors.white,
+              backgroundColor: Theme.of(context).colorScheme.onSurface,
+              foregroundColor: Theme.of(context).scaffoldBackgroundColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(28),
               ),
               elevation: 0,
             ),
-            icon: const Icon(Icons.check_circle, size: 20),
-            label: const Text(
-              'Save Entry',
+
+            label: Text(
+              isEdit == true ? 'Update Entry' : 'Save Entry',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  // --- AMOUNT CARD ---
-
-  // --- FORM CARD ---
-  Widget _buildFormCard() {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: AppColors.appBottomNavColor,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.03),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildSectionLabel('Transaction Type'),
-          const SizedBox(height: 8),
-          _buildTransactionTypeToggle(),
-          const SizedBox(height: 20),
-
-          _buildSectionLabel('Category'),
-          const SizedBox(height: 8),
-          _buildDropdownField(),
-          const SizedBox(height: 20),
-
-          _buildSectionLabel('Date'),
-          const SizedBox(height: 8),
-          _buildDateField(),
-          const SizedBox(height: 20),
-
-          _buildSectionLabel('Description (Optional)'),
-          const SizedBox(height: 8),
-          _buildDescriptionField(),
-        ],
-      ),
-    );
-  }
-
-  // Helper for small grey labels above fields
-  Widget _buildSectionLabel(String text) {
-    return Text(
-      text,
-      style: TextStyle(
-        color: Theme.of(context).colorScheme.onSurface,
-        fontSize: 13,
-        fontWeight: FontWeight.w500,
-      ),
-    );
-  }
-
-  // --- CUSTOM TOGGLE SWITCH ---
-  Widget _buildTransactionTypeToggle() {
-    return Container(
-      height: 48,
-      decoration: BoxDecoration(
-        color: inputBgColor,
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: GestureDetector(
-              onTap: () => setState(() => isExpense = true),
-              child: Container(
-                margin: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  color: isExpense ? AppColors.appBlack : Colors.transparent,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: isExpense
-                      ? [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
-                            blurRadius: 4,
-                            offset: const Offset(0, 2),
-                          ),
-                        ]
-                      : [],
-                ),
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.arrow_downward,
-                      size: 16,
-                      color: isExpense ? AppColors.appWhite : textGrey,
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
-                      'Expense',
-                      style: TextStyle(
-                        color: isExpense ? AppColors.appWhite : textGrey,
-                        fontWeight: isExpense
-                            ? FontWeight.bold
-                            : FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: GestureDetector(
-              onTap: () => setState(() => isExpense = false),
-              child: Container(
-                margin: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  color: !isExpense ? Colors.white : Colors.transparent,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: !isExpense
-                      ? [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
-                            blurRadius: 4,
-                            offset: const Offset(0, 2),
-                          ),
-                        ]
-                      : [],
-                ),
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.arrow_upward,
-                      size: 16,
-                      color: !isExpense ? primaryDark : textGrey,
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
-                      'Income',
-                      style: TextStyle(
-                        color: !isExpense ? primaryDark : textGrey,
-                        fontWeight: !isExpense
-                            ? FontWeight.bold
-                            : FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // --- DROPDOWN FIELD ---
-  Widget _buildDropdownField() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: inputBgColor,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          value: selectedCategory,
-          isExpanded: true,
-          icon: Icon(Icons.keyboard_arrow_down, color: textGrey),
-          style: TextStyle(
-            color: primaryDark,
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-          ),
-          onChanged: (String? newValue) {
-            if (newValue != null) {
-              setState(() {
-                selectedCategory = newValue;
-              });
-            }
-          },
-          items:
-              <String>[
-                'Transport',
-                'Food',
-                'Shopping',
-                'Bills',
-                'Entertainment',
-              ].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-        ),
-      ),
-    );
-  }
-
-  // --- DATE PICKER FIELD ---
-  Widget _buildDateField() {
-    return GestureDetector(
-      onTap: () => _selectDate(context),
-      child: Container(
-        height: 50,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: BoxDecoration(
-          color: inputBgColor,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              DateFormat('dd-MM-yyyy').format(selectedDate),
-              style: TextStyle(
-                color: primaryDark,
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            Icon(Icons.calendar_today_outlined, color: primaryDark, size: 20),
-          ],
-        ),
-      ),
-    );
-  }
-
-  // --- DESCRIPTION TEXT FIELD ---
-  Widget _buildDescriptionField() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: inputBgColor,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: TextField(
-        controller: _descriptionController,
-        maxLines: 3,
-        style: TextStyle(color: primaryDark, fontSize: 15),
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: 'Add a note or tag...',
-          hintStyle: TextStyle(color: textGrey, fontSize: 15),
         ),
       ),
     );

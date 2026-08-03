@@ -1,4 +1,6 @@
+import 'package:finance/controller/create_expense_controller/create_expense_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AmountEnterCard extends ConsumerWidget {
@@ -6,15 +8,18 @@ class AmountEnterCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref
+        .read(createExpensePrrovider.notifier)
+        .amountController;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .2),
+        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .03),
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.07),
+            color: Colors.black.withValues(alpha: 0.07),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -47,17 +52,27 @@ class AmountEnterCard extends ConsumerWidget {
               const SizedBox(width: 8),
               IntrinsicWidth(
                 child: TextField(
-                  controller: TextEditingController(),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(8),
+                  ],
+                  controller: controller,
                   keyboardType: TextInputType.number,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 40,
                     fontWeight: FontWeight.w900,
                   ),
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     border: InputBorder.none,
                     isDense: true,
                     contentPadding: EdgeInsets.zero,
+                    hintText: ref.watch(createExpensePrrovider).amount == 0
+                        ? '000'
+                        : ref.watch(createExpensePrrovider).amount.toString(),
+                    hintStyle: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
                   ),
                 ),
               ),
@@ -68,14 +83,3 @@ class AmountEnterCard extends ConsumerWidget {
     );
   }
 }
-
-
-
-
-// 
-//
-//
-//
-//
-// Widget _buildAmountCard() {
-//   }
