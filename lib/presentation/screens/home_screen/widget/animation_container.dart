@@ -1,25 +1,26 @@
 import 'dart:math' as math;
 
+import 'package:finance/controller/home_screen/home_screen_controller.dart';
 import 'package:finance/core/themes/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AnimatedBalanceCard extends StatefulWidget {
-  // Pass your existing colors in, or define them globally
-
-  const AnimatedBalanceCard({super.key});
+class AnimattedBalancedCard extends ConsumerStatefulWidget {
+  const AnimattedBalancedCard({super.key});
 
   @override
-  State<AnimatedBalanceCard> createState() => _AnimatedBalanceCardState();
+  ConsumerState<AnimattedBalancedCard> createState() =>
+      _AnimattedBalancedCardState();
 }
 
-class _AnimatedBalanceCardState extends State<AnimatedBalanceCard>
+class _AnimattedBalancedCardState extends ConsumerState<AnimattedBalancedCard>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+  late final AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-    // Controls the speed of the running border (3 seconds for a full rotation)
+
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 6),
@@ -34,7 +35,7 @@ class _AnimatedBalanceCardState extends State<AnimatedBalanceCard>
 
   @override
   Widget build(BuildContext context) {
-    // 1. The outermost container holds the shadow and clips the animated border
+    final homeState = ref.watch(homeProvider);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
@@ -96,7 +97,7 @@ class _AnimatedBalanceCardState extends State<AnimatedBalanceCard>
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          '₹ 24,850.42',
+                          '₹ ${homeState.currentBalance}',
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface,
                             fontSize: 32,
@@ -135,7 +136,7 @@ class _AnimatedBalanceCardState extends State<AnimatedBalanceCard>
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '+₹ 6,400.00',
+                            '+₹ ${homeState.monthlyIncome}',
                             style: TextStyle(
                               color: AppColors.appGreen,
                               fontSize: 16,
@@ -166,7 +167,7 @@ class _AnimatedBalanceCardState extends State<AnimatedBalanceCard>
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              '-₹ 2,120.15',
+                              '-₹ ${homeState.monthlyExpense}',
                               style: TextStyle(
                                 color: AppColors.appRed,
                                 fontSize: 16,
@@ -187,8 +188,3 @@ class _AnimatedBalanceCardState extends State<AnimatedBalanceCard>
     );
   }
 }
-
-///
-///
-///
-////
