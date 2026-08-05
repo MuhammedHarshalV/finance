@@ -47,6 +47,8 @@ class CategoryPopup extends ConsumerWidget {
     {'name': 'Lottery', 'icon': Icons.casino_outlined},
     {'name': 'Snacks', 'icon': Icons.takeout_dining_outlined},
     {'name': 'Love', 'icon': Icons.favorite_border},
+    {'name': 'Trips', 'icon': Icons.toys_rounded},
+
     {'name': 'Other', 'icon': Icons.more_horiz},
   ];
   static const List<Map<String, dynamic>> incomeCategories = [

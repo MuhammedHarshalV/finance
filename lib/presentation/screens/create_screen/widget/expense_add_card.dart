@@ -59,7 +59,7 @@ class ExpenseAddCard extends ConsumerWidget {
     return Text(
       text,
       style: TextStyle(
-        color: Theme.of(context).colorScheme.onSurface,
+        color:  AppColors.appBlack,
         fontSize: 13,
         fontWeight: FontWeight.w500,
       ),

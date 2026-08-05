@@ -1,13 +1,13 @@
 import 'dart:developer';
 
 import 'package:finance/controller/bottom_nav_controller/bottom_nav_controller.dart';
-import 'package:finance/core/themes/colors.dart';
+
 import 'package:finance/presentation/common_widgets/glass_container.dart';
 import 'package:finance/presentation/screens/bottom_nav_screen/widget/bottom_nav_items.dart';
 import 'package:finance/presentation/screens/create_screen/screen/create_screen.dart';
 import 'package:finance/presentation/screens/home_screen/screen/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class BottomNavScreen extends ConsumerWidget {
@@ -75,23 +75,6 @@ class SearchPage extends StatelessWidget {
         itemBuilder: (_, i) {
           return ListTile(title: Text("Item $i"));
         },
-      ),
-    );
-  }
-}
-
-class CreateScreen extends StatelessWidget {
-  const CreateScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      // or simply omit appBar
-      body: SafeArea(
-        child: Center(
-          child: Text('Create Screen', style: TextStyle(fontSize: 22)),
-        ),
       ),
     );
   }

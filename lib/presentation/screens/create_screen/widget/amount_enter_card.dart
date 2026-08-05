@@ -1,4 +1,5 @@
 import 'package:finance/controller/create_expense_controller/create_expense_controller.dart';
+import 'package:finance/core/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +9,7 @@ class AmountEnterCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final amountController = ref.read(createExpensePrrovider.notifier);
     final controller = ref
         .read(createExpensePrrovider.notifier)
         .amountController;
@@ -15,7 +17,7 @@ class AmountEnterCard extends ConsumerWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .03),
+        color: AppColors.appBottomNavColor,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -30,7 +32,7 @@ class AmountEnterCard extends ConsumerWidget {
           Text(
             'AMOUNT',
             style: TextStyle(
-              color: Theme.of(context).colorScheme.onSurface,
+              color: AppColors.appBlack,
               fontSize: 12,
               fontWeight: FontWeight.bold,
               letterSpacing: 1.5,
@@ -44,34 +46,40 @@ class AmountEnterCard extends ConsumerWidget {
               Text(
                 '₹',
                 style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSurface,
+                  color: AppColors.appBlack,
                   fontSize: 40,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(width: 8),
               IntrinsicWidth(
-                child: TextField(
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(8),
-                  ],
-                  controller: controller,
-                  keyboardType: TextInputType.number,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 40,
-                    fontWeight: FontWeight.w900,
-                  ),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    isDense: true,
-                    contentPadding: EdgeInsets.zero,
-                    hintText: ref.watch(createExpensePrrovider).amount == 0
-                        ? '000'
-                        : ref.watch(createExpensePrrovider).amount.toString(),
-                    hintStyle: TextStyle(
-                      color: Theme.of(context).colorScheme.onSurface,
+                child: TapRegion(
+                  onTapOutside: (_) {
+                    FocusScope.of(context).unfocus();
+                  },
+                  child: TextField(
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(8),
+                    ],
+                    controller: controller,
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) {
+                      amountController.updateState(amount: num.tryParse(value));
+                    },
+                    style: TextStyle(
+                      color: AppColors.appBlack,
+                      fontSize: 40,
+                      fontWeight: FontWeight.w900,
+                    ),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      isDense: true,
+                      contentPadding: EdgeInsets.zero,
+                      hintText: ref.watch(createExpensePrrovider).amount == 0
+                          ? '00'
+                          : ref.watch(createExpensePrrovider).amount.toString(),
+                      hintStyle: TextStyle(color: AppColors.appBlack),
                     ),
                   ),
                 ),

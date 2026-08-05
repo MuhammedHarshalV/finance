@@ -12,7 +12,7 @@ class PriorityCard extends ConsumerWidget {
     final expenseController = ref.read(createExpensePrrovider.notifier);
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Theme.of(context).scaffoldBackgroundColor),
+        border: Border.all(color: AppColors.appWhite),
         borderRadius: BorderRadius.circular(30),
       ),
       child: Row(
@@ -46,8 +46,8 @@ class PriorityCard extends ConsumerWidget {
                         color:
                             (expenseState.priority.isEmpty ||
                                 expenseState.priority == 'Low')
-                            ? Theme.of(context).scaffoldBackgroundColor
-                            : Theme.of(context).colorScheme.onSurface,
+                            ? AppColors.appWhite
+                            : AppColors.appBlack,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -80,8 +80,8 @@ class PriorityCard extends ConsumerWidget {
                       'Medium',
                       style: TextStyle(
                         color: expenseState.priority == 'Medium'
-                            ? Theme.of(context).scaffoldBackgroundColor
-                            : Theme.of(context).colorScheme.onSurface,
+                            ? AppColors.appWhite
+                            : AppColors.appBlack,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -114,8 +114,8 @@ class PriorityCard extends ConsumerWidget {
                       'High',
                       style: TextStyle(
                         color: expenseState.priority == 'High'
-                            ? Theme.of(context).scaffoldBackgroundColor
-                            : Theme.of(context).colorScheme.onSurface,
+                            ? AppColors.appWhite
+                            : AppColors.appBlack,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

@@ -1,3 +1,6 @@
+import 'package:finance/controller/create_expense_controller/create_expense_controller.dart';
+import 'package:finance/controller/home_screen/home_screen_controller.dart';
+import 'package:finance/core/errors/app_message.dart';
 import 'package:finance/core/themes/colors.dart';
 import 'package:finance/presentation/common_widgets/glass_container.dart';
 import 'package:finance/presentation/screens/create_screen/widget/amount_enter_card.dart';
@@ -6,11 +9,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class NewTransactionScreen extends ConsumerWidget {
-  final bool? isEdit;
-  const NewTransactionScreen({super.key, this.isEdit});
+  final int? index;
+  const NewTransactionScreen({super.key, this.index});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final createExpenseController = ref.read(createExpensePrrovider.notifier);
+    final createExpenseState = ref.watch(createExpensePrrovider);
+
+    final homeController = ref.read(homeProvider.notifier);
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
@@ -120,24 +127,55 @@ class NewTransactionScreen extends ConsumerWidget {
         padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
         child: GlassContainer(
           height: 50,
-          child: ElevatedButton.icon(
-            onPressed: () {
-              // Handle save action
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.onSurface,
-              foregroundColor: Theme.of(context).scaffoldBackgroundColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(28),
-              ),
-              elevation: 0,
-            ),
+          child: createExpenseState.isSubmit == true
+              ? SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                  ),
+                )
+              : ElevatedButton.icon(
+                  onPressed: () async {
+                    if (createExpenseState.amount == 0) {
+                      AppMessage.show(context, "Please enter Amount");
+                    } else {
+                      if (index != null) {
+                        await createExpenseController.updateExpenseOrIncome(
+                          index: index!,
+                          transactionType: createExpenseState.transactionType,
+                          category: createExpenseState.category.isEmpty
+                              ? null
+                              : createExpenseState.category,
+                          description: createExpenseState.description,
+                          amount: createExpenseState.amount,
+                          priority: createExpenseState.priority,
+                        );
+                        await homeController.fetchExpenses();
+                        Navigator.pop(context);
+                        createExpenseController.reset();
+                      } else {
+                        await createExpenseController.saveExpenseOrIncome();
+                        await homeController.fetchExpenses();
+                        Navigator.pop(context);
+                        createExpenseController.reset();
+                      }
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.onSurface,
+                    foregroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(28),
+                    ),
+                    elevation: 0,
+                  ),
 
-            label: Text(
-              isEdit == true ? 'Update Entry' : 'Save Entry',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ),
+                  label: Text(
+                    index != null ? 'Update Entry' : 'Save Entry',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
         ),
       ),
     );
