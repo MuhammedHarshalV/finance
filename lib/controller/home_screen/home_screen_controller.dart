@@ -34,6 +34,7 @@ class HomeController extends StateNotifier<HomeState> {
     );
   }
 
+
   //delete expense
   Future<void> deleteExpense(int index) async {
     String boxName = "expense_box";

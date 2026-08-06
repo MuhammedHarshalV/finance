@@ -3,8 +3,9 @@ import 'package:finance/core/themes/colors.dart';
 import 'package:finance/presentation/common_widgets/glass_container.dart';
 import 'package:finance/presentation/screens/home_screen/widget/animation_container.dart';
 import 'package:finance/presentation/screens/home_screen/widget/expense_income_card.dart';
-import 'package:finance/presentation/screens/home_screen/widget/savings_card.dart';
+import 'package:finance/presentation/screens/home_screen/widget/marcket_overview_card.dart';
 import 'package:finance/presentation/screens/home_screen/widget/weeks_trend_card.dart';
+import 'package:finance/presentation/screens/monthly_all_transaction/screen/monthly_all_transaction_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,7 +16,7 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final homeState = ref.watch(homeProvider);
-    final homeController = ref.read(homeProvider.notifier);
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
@@ -83,15 +84,7 @@ class HomeScreen extends ConsumerWidget {
                     spacing: 10,
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          // PersistentNavBarNavigator.pushNewScreen(
-                          //   context,
-                          //   screen: NotificationScreen(),
-                          //   withNavBar: true,
-                          //   pageTransitionAnimation:
-                          //       PageTransitionAnimation.cupertino,
-                          // );
-                        },
+                        onTap: () {},
                         child: Icon(
                           Icons.person_2_outlined,
                           color: AppColors.appWhite,
@@ -145,7 +138,7 @@ class HomeScreen extends ConsumerWidget {
 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: SavingsCard(),
+                  child: MarketOverviewCard(),
                 ),
 
                 const SizedBox(height: 30),
@@ -162,12 +155,27 @@ class HomeScreen extends ConsumerWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Text(
-                        "View All",
-                        style: TextStyle(
-                          color: AppColors.appGreen,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
+                      InkWell(
+                        focusColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  MonthlyAllTransactionScreen(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          "View All",
+                          style: TextStyle(
+                            color: AppColors.appGreen,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ],
@@ -179,7 +187,7 @@ class HomeScreen extends ConsumerWidget {
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             sliver: SliverList.separated(
-              itemBuilder: (context, index) => ExpenseIncomeCard(index: index),
+              itemBuilder: (context, index) => ExpenseIncomeCards(index: index),
               separatorBuilder: (_, __) => const SizedBox(height: 10),
               itemCount: homeState.expenseList.length >= 10
                   ? 10

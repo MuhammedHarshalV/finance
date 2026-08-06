@@ -1,6 +1,7 @@
 import 'package:finance/core/themes/theme.dart';
 
 import 'package:finance/presentation/screens/bottom_nav_screen/screen/bottom_nav_screen.dart';
+import 'package:finance/presentation/screens/splash_screen/splash_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BottomNavScreen(),
+      home: SplashScreen(),
       themeMode: ThemeMode.system,
       theme: Apptheme.lighttheme.copyWith(
         scaffoldBackgroundColor: Apptheme.lighttheme.scaffoldBackgroundColor,
