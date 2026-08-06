@@ -2,15 +2,15 @@ import 'package:finance/controller/create_expense_controller/create_expense_cont
 import 'package:finance/controller/home_screen/home_screen_controller.dart';
 import 'package:finance/core/constants/icon_constants.dart';
 import 'package:finance/core/themes/colors.dart';
-import 'package:finance/presentation/screens/bottom_nav_screen/screen/bottom_nav_screen.dart';
+
 import 'package:finance/presentation/screens/create_screen/screen/create_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class ExpenseIncomeCard extends ConsumerWidget {
+class ExpenseIncomeCards extends ConsumerWidget {
   final int index;
-  const ExpenseIncomeCard({super.key, required this.index});
+  const ExpenseIncomeCards({super.key, required this.index});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
