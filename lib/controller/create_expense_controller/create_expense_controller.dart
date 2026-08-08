@@ -28,7 +28,9 @@ class CreateExpenseController extends StateNotifier<CreateExpenseState> {
         priority: state.priority.isEmpty ? 'Low' : state.priority,
         description: state.description,
         amount: state.amount,
-        createdAt: DateFormat('dd-MM-yyyy').format(DateTime.now()),
+        createdAt:
+            //'04-02-2026',
+            DateFormat('dd-MM-yyyy').format(DateTime.now()),
       );
       await box.add(expense.toMap());
       log('''

@@ -1,7 +1,7 @@
 import 'package:finance/controller/home_screen/home_screen_controller.dart';
 import 'package:finance/core/themes/colors.dart';
 import 'package:finance/presentation/common_widgets/glass_container.dart';
-import 'package:finance/presentation/screens/home_screen/widget/animation_container.dart';
+import 'package:finance/presentation/screens/home_screen/widget/monyhly_expense_container.dart';
 import 'package:finance/presentation/screens/home_screen/widget/expense_income_card.dart';
 import 'package:finance/presentation/screens/home_screen/widget/marcket_overview_card.dart';
 import 'package:finance/presentation/screens/home_screen/widget/weeks_trend_card.dart';
@@ -16,6 +16,7 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final homeState = ref.watch(homeProvider);
+    final homeController = ref.read(homeProvider.notifier);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -99,52 +100,43 @@ class HomeScreen extends ConsumerWidget {
           ),
           // BODY CONTENT
           SliverToBoxAdapter(
-            child: Column(
-              children: [
-                const SizedBox(height: 10),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 10),
 
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'TIMELINE',
-                      style: TextStyle(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.onSurface.withOpacity(.6),
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.2,
-                      ),
+                  Text(
+                    'TIMELINE',
+                    style: TextStyle(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withOpacity(.6),
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.2,
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Today, 2 May 2026',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurface,
-                        fontSize: 26,
-                        fontWeight: FontWeight.w900,
-                      ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Today, 2 May 2026',
+
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontSize: 26,
+                      fontWeight: FontWeight.w900,
                     ),
-                  ],
-                ),
-                const SizedBox(height: 16),
+                  ),
+                  const SizedBox(height: 16),
 
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: AnimattedBalancedCard(),
-                ),
-                const SizedBox(height: 20),
+                  MonthDetailsCard(),
+                  const SizedBox(height: 20),
 
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: MarketOverviewCard(),
-                ),
+                  AnimattedSensexCard(),
 
-                const SizedBox(height: 30),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
+                  const SizedBox(height: 30),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
@@ -180,8 +172,8 @@ class HomeScreen extends ConsumerWidget {
                       ),
                     ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           SliverPadding(
@@ -199,26 +191,19 @@ class HomeScreen extends ConsumerWidget {
               padding: const EdgeInsets.all(10),
               child: SpendingTrendsCard(
                 // You can pass any number of values here, and it will draw the bars dynamically
-                data: const [30.0, 55.0, 85.0, 45.0, 25.0, 90.0, 45.0],
-                summaryText:
-                    "You spent 15% less this week compared to last week.",
+                data: homeState.monthGraph,
+                summaryText: homeController.getSpendingTrend(
+                  homeState.monthExpense.length >= 2
+                      ? homeState.monthExpense.sublist(
+                          homeState.monthExpense.length - 2,
+                        )
+                      : homeState.monthExpense,
+                ),
               ),
             ),
           ),
 
           SliverToBoxAdapter(child: SizedBox(height: 100)),
-
-          // SliverPadding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          //   sliver: SliverList(
-          //     delegate: SliverChildListDelegate([
-
-          //       //  const SizedBox(height: 16),
-          //       // Dummy list to enable scrolling
-
-          //     ]),
-          //   ),
-          // ),
         ],
       ),
     );

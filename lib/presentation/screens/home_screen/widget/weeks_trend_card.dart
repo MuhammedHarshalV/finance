@@ -1,10 +1,10 @@
 import 'dart:math';
-import 'package:finance/core/themes/colors.dart';
+
 import 'package:flutter/material.dart';
 
 class SpendingTrendsCard extends StatelessWidget {
   /// Dynamic list of data points for the bar chart
-  final List<double> data;
+  final List<num> data;
 
   /// The descriptive text shown below the chart
   final String summaryText;
@@ -18,14 +18,13 @@ class SpendingTrendsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Find the maximum value in the data list to scale the bars proportionally
-    final double maxValue = data.isEmpty ? 1.0 : data.reduce(max);
+    final num maxValue = data.isEmpty ? 1.0 : data.reduce(max);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
       decoration: BoxDecoration(
-        color: Colors.white,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.appBlack),
+        border: Border.all(color: Theme.of(context).colorScheme.onSurface),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -34,7 +33,7 @@ class SpendingTrendsCard extends StatelessWidget {
           Text(
             'Spending Trends',
             style: TextStyle(
-              color: Colors.blueGrey[600],
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: 16,
               fontWeight: FontWeight.w600,
             ),
@@ -67,9 +66,7 @@ class SpendingTrendsCard extends StatelessWidget {
                         curve: Curves.easeOut,
                         decoration: BoxDecoration(
                           color: isHighest
-                              ? const Color(
-                                  0xFF0F172A,
-                                ) // Dark slate for max value
+                              ? Theme.of(context).colorScheme.onSurface
                               : const Color(
                                   0xFFCBD5E1,
                                 ), // Light grey for others
@@ -89,7 +86,7 @@ class SpendingTrendsCard extends StatelessWidget {
             summaryText,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Colors.blueGrey[500],
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: 14,
               fontWeight: FontWeight.w500,
               height: 1.4,

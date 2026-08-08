@@ -1,148 +1,273 @@
+import 'package:finance/controller/home_screen/home_screen_controller.dart';
 import 'package:finance/core/errors/app_message.dart';
 import 'package:finance/core/services/net_work_services/connection_checking.dart';
+import 'package:finance/core/themes/colors.dart';
 import 'package:finance/presentation/common_widgets/glass_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
-// import 'package:url_launcher/url_launcher.dart'; // Uncomment if using url_launcher
+import 'dart:math' as math;
 
-class MarketOverviewCard extends ConsumerWidget {
-  const MarketOverviewCard({super.key});
-
-  // Helper method to open URLs (Requires url_launcher package)
-  /*
-  Future<void> _launchURL(String url) async {
-    final Uri uri = Uri.parse(url);
-    if (!await launchUrl(uri)) {
-      throw Exception('Could not launch $url');
-    }
-  }
-  */
+class AnimattedSensexCard extends ConsumerStatefulWidget {
+  const AnimattedSensexCard({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AnimattedSensexCard> createState() =>
+      _AnimattedSensexCardState();
+}
+
+class _AnimattedSensexCardState extends ConsumerState<AnimattedSensexCard>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 4),
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final homeController = ref.read(homeProvider.notifier);
+    final homeState = ref.watch(homeProvider);
+
     return Container(
-      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.onSurface,
-        image: const DecorationImage(
-          image: AssetImage('asset/image/marcket_image.webp'),
-          fit: BoxFit.cover,
-          // Added a dark filter to make the text pop against the bright graph
-          colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
-        ),
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // Row 1: Sensex & Nifty 50
-          Row(
-            children: [
-              Expanded(
-                child: _buildDataTile(
-                  context,
-                  title: 'SENSEX',
-                  value: '80,245.10', // Replace with dynamic data
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(24),
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, child) {
+            // 2. This container draws the rotating gradient background
+            return Container(
+              padding: const EdgeInsets.all(3), // This acts as the border width
+              decoration: BoxDecoration(
+                gradient: SweepGradient(
+                  transform: GradientRotation(_controller.value * 2 * math.pi),
+                  colors: [
+                    const Color.fromARGB(255, 255, 59, 167),
+                    const Color.fromARGB(255, 59, 72, 255),
+                    const Color.fromARGB(255, 255, 59, 167),
+                    Colors.white,
+                    Colors.white,
+                  ],
+                  stops: const [0.0, 0.25, 0.5, 0.75, 1.0],
                 ),
               ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _buildDataTile(
-                  context,
-                  title: 'NIFTY 50',
-                  value: '24,350.75', // Replace with dynamic data
-                ),
+              child: child, // The white inner card
+            );
+          },
+          // 3. The inner card containing your original UI
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.onSurface,
+              image: const DecorationImage(
+                image: AssetImage('asset/image/marcket_image.webp'),
+                fit: BoxFit.cover,
+                // Added a dark filter to make the text pop against the bright graph
+                colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
               ),
-            ],
-          ),
-          const SizedBox(height: 12),
+              borderRadius: BorderRadius.circular(24),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
 
-          // Row 2: Gold & Silver Prices
-          Row(
-            children: [
-              Expanded(
-                child: _buildDataTile(
-                  context,
-                  title: 'GOLD (10g)',
-                  value: '₹ 72,400', // Replace with dynamic data
+              children: [
+                // Row 1: Sensex & Nifty 50
+                Row(
+                  children: [
+                    Expanded(
+                      child: _buildDataTile(
+                        context,
+                        title: 'SENSEX',
+                        value: homeState.sensex
+                            .toString(), // Replace with dynamic data
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: _buildDataTile(
+                        context,
+                        title: 'NIFTY 50',
+                        value: homeState.nifty
+                            .toString(), // Replace with dynamic data
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _buildDataTile(
-                  context,
-                  title: 'SILVER (1kg)',
-                  value: '₹ 91,250', // Replace with dynamic data
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
+                const SizedBox(height: 12),
 
-          // Row 3: Navigation Buttons
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildNavButton(
-                context,
-                icon: Icons.language,
-                label: 'BSE India',
-                onTap: () async {
-                  bool connect = await InternetChecker.hasConnection();
-                  if (connect == true) {
-                    final Uri url = Uri.parse('https://www.bseindia.com/');
-                    if (await canLaunchUrl(url)) {
-                      await launchUrl(
-                        url,
-                        mode: LaunchMode.externalApplication,
-                      );
-                    } else {
-                      throw 'could not launch ';
-                    }
-                  } else {
-                    // ignore: use_build_context_synchronously
-                    AppMessage.show(context, 'No Network connection');
-                  }
-                },
-              ),
-              _buildNavButton(
-                context,
-                icon: Icons.trending_up,
-                label: 'NSE India',
-                onTap: () async {
-                  bool connect = await InternetChecker.hasConnection();
-                  if (connect == true) {
-                    final Uri url = Uri.parse('https://www.nseindia.com/');
-                    if (await canLaunchUrl(url)) {
-                      await launchUrl(
-                        url,
-                        mode: LaunchMode.externalApplication,
-                      );
-                    } else {
-                      throw 'could not launch ';
-                    }
-                  } else {
-                    // ignore: use_build_context_synchronously
-                    AppMessage.show(context, 'No Network connection');
-                  }
-                },
-              ),
-            ],
+                // Row 2: Gold & Silver Prices
+                Row(
+                  children: [
+                    Expanded(
+                      child: _buildDataTile(
+                        context,
+                        title: 'GOLD (1g)',
+                        value:
+                            "\$ ${homeState.gold.toString()}", // Replace with dynamic data
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: _buildDataTile(
+                        context,
+                        title: 'SILVER (1kg)',
+                        value: homeState.silver
+                            .toString(), // Replace with dynamic data
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.center,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(20),
+                    onTap: () async {
+                      bool connect = await InternetChecker.hasConnection();
+                      if (connect == true) {
+                        await homeController.fetchSensex();
+                      } else {
+                        // ignore: use_build_context_synchronously
+                        AppMessage.show(context, 'No Network connection');
+                      }
+                    },
+                    child: GlassContainer(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 8,
+                      ),
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.black.withOpacity(.35),
+                      blur: 1,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          homeState.isSensex == true
+                              ? SizedBox.shrink()
+                              : Icon(
+                                  Icons.refresh_rounded,
+                                  color: Colors.green,
+                                  size: 18,
+                                ),
+                          homeState.isSensex == true
+                              ? SizedBox.shrink()
+                              : SizedBox(width: 8),
+                          homeState.isSensex == true
+                              ? SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: Center(
+                                    child: CircularProgressIndicator(
+                                      color: AppColors.appGreen,
+                                      strokeWidth: 1,
+                                    ),
+                                  ),
+                                )
+                              : Text(
+                                  "Refresh",
+                                  style: TextStyle(
+                                    color: Colors.green,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+
+                // Row 3: Navigation Buttons
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _buildNavButton(
+                      context,
+                      icon: Icons.language,
+                      label: 'BSE India',
+                      onTap: () async {
+                        bool connect = await InternetChecker.hasConnection();
+                        if (connect == true) {
+                          final Uri url = Uri.parse(
+                            'https://www.bseindia.com/',
+                          );
+                          if (await canLaunchUrl(url)) {
+                            await launchUrl(
+                              url,
+                              mode: LaunchMode.externalApplication,
+                            );
+                          } else {
+                            throw 'could not launch ';
+                          }
+                        } else {
+                          // ignore: use_build_context_synchronously
+                          AppMessage.show(context, 'No Network connection');
+                        }
+                      },
+                    ),
+                    _buildNavButton(
+                      context,
+                      icon: Icons.trending_up,
+                      label: 'NSE India',
+                      onTap: () async {
+                        bool connect = await InternetChecker.hasConnection();
+                        if (connect == true) {
+                          final Uri url = Uri.parse(
+                            'https://www.nseindia.com/',
+                          );
+                          if (await canLaunchUrl(url)) {
+                            await launchUrl(
+                              url,
+                              mode: LaunchMode.externalApplication,
+                            );
+                          } else {
+                            throw 'could not launch ';
+                          }
+                        } else {
+                          // ignore: use_build_context_synchronously
+                          AppMessage.show(context, 'No Network connection');
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ],
+        ),
       ),
     );
   }
 
-  // UI Helper for the Market Data Blocks
   Widget _buildDataTile(
     BuildContext context, {
     required String title,
