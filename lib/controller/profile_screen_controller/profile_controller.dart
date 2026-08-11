@@ -115,7 +115,7 @@ class ProfileController extends StateNotifier<ProfileState> {
       log('Profile image does not exist: $path');
 
       await prefs.remove('profile_image_path');
-
+//
       state = state.copyWith(profileImage: '');
     }
     state = state.copyWith(
