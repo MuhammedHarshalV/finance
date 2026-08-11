@@ -6,6 +6,7 @@ import 'package:finance/presentation/screens/home_screen/widget/expense_income_c
 import 'package:finance/presentation/screens/home_screen/widget/marcket_overview_card.dart';
 import 'package:finance/presentation/screens/home_screen/widget/weeks_trend_card.dart';
 import 'package:finance/presentation/screens/monthly_all_transaction/screen/monthly_all_transaction_screen.dart';
+import 'package:finance/presentation/screens/profile_screen/screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -85,7 +86,14 @@ class HomeScreen extends ConsumerWidget {
                     spacing: 10,
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProfileScreen(),
+                            ),
+                          );
+                        },
                         child: Icon(
                           Icons.person_2_outlined,
                           color: AppColors.appWhite,
