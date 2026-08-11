@@ -76,7 +76,7 @@ class ProfileScreen extends ConsumerWidget {
         child: Column(
           children: [
             ProfileHeader(),
-
+//
             const SizedBox(height: 24),
 
             // ─────────────────────────
