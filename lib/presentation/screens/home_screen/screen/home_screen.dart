@@ -1,12 +1,14 @@
 import 'package:finance/controller/home_screen/home_screen_controller.dart';
+
 import 'package:finance/core/themes/colors.dart';
-import 'package:finance/presentation/common_widgets/glass_container.dart';
+
 import 'package:finance/presentation/screens/home_screen/widget/monyhly_expense_container.dart';
 import 'package:finance/presentation/screens/home_screen/widget/expense_income_card.dart';
 import 'package:finance/presentation/screens/home_screen/widget/marcket_overview_card.dart';
+import 'package:finance/presentation/screens/home_screen/widget/profile_icon.dart';
 import 'package:finance/presentation/screens/home_screen/widget/weeks_trend_card.dart';
 import 'package:finance/presentation/screens/monthly_all_transaction/screen/monthly_all_transaction_screen.dart';
-import 'package:finance/presentation/screens/profile_screen/screen/profile_screen.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -76,35 +78,7 @@ class HomeScreen extends ConsumerWidget {
                 ),
               ],
             ),
-            actions: [
-              GlassContainer(
-                border: Border.all(color: AppColors.appWhite),
-                borderRadius: BorderRadius.circular(360),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    spacing: 10,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ProfileScreen(),
-                            ),
-                          );
-                        },
-                        child: Icon(
-                          Icons.person_2_outlined,
-                          color: AppColors.appWhite,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(width: 15),
-            ],
+            actions: [ProfileIcon(homeState: homeState)],
           ),
           // BODY CONTENT
           SliverToBoxAdapter(
