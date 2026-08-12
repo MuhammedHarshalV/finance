@@ -12,7 +12,7 @@ class PriorityCard extends ConsumerWidget {
     final expenseController = ref.read(createExpensePrrovider.notifier);
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.appWhite),
+        border: Border.all(color: Theme.of(context).colorScheme.onSurface),
         borderRadius: BorderRadius.circular(30),
       ),
       child: Row(
@@ -47,7 +47,7 @@ class PriorityCard extends ConsumerWidget {
                             (expenseState.priority.isEmpty ||
                                 expenseState.priority == 'Low')
                             ? AppColors.appWhite
-                            : AppColors.appBlack,
+                            : Theme.of(context).colorScheme.onSurface,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -81,7 +81,7 @@ class PriorityCard extends ConsumerWidget {
                       style: TextStyle(
                         color: expenseState.priority == 'Medium'
                             ? AppColors.appWhite
-                            : AppColors.appBlack,
+                            : Theme.of(context).colorScheme.onSurface,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -115,7 +115,7 @@ class PriorityCard extends ConsumerWidget {
                       style: TextStyle(
                         color: expenseState.priority == 'High'
                             ? AppColors.appWhite
-                            : AppColors.appBlack,
+                            : Theme.of(context).colorScheme.onSurface,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

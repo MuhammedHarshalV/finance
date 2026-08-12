@@ -1,5 +1,5 @@
 import 'package:finance/controller/create_expense_controller/create_expense_controller.dart';
-import 'package:finance/core/themes/colors.dart';
+
 import 'package:finance/presentation/screens/create_screen/widget/category_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,8 +23,9 @@ class CategoryCard extends ConsumerWidget {
         height: 50,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: AppColors.appWhite,
+          color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Theme.of(context).colorScheme.onSurface),
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -43,14 +44,14 @@ class CategoryCard extends ConsumerWidget {
                     ? "Food"
                     : expenseState.category,
                 style: TextStyle(
-                  color: AppColors.appBlack,
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontWeight: FontWeight.w500,
                   fontSize: 15,
                 ),
               ),
               Icon(
                 Icons.arrow_drop_down_circle_outlined,
-                color: AppColors.appBlack,
+                color: Theme.of(context).colorScheme.onSurface,
                 size: 25,
               ),
             ],

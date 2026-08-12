@@ -78,7 +78,7 @@ class HomeScreen extends ConsumerWidget {
                 ),
               ],
             ),
-            actions: [ProfileIcon(homeState: homeState)],
+            actions: [ProfileIcon()],
           ),
           // BODY CONTENT
           SliverToBoxAdapter(

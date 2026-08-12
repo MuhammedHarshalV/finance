@@ -17,11 +17,13 @@ class AmountEnterCard extends ConsumerWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
-        color: AppColors.appBottomNavColor,
+        color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.07),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.3),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -32,7 +34,7 @@ class AmountEnterCard extends ConsumerWidget {
           Text(
             'AMOUNT',
             style: TextStyle(
-              color: AppColors.appBlack,
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: 12,
               fontWeight: FontWeight.bold,
               letterSpacing: 1.5,
@@ -46,7 +48,7 @@ class AmountEnterCard extends ConsumerWidget {
               Text(
                 '₹',
                 style: TextStyle(
-                  color: AppColors.appBlack,
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontSize: 40,
                   fontWeight: FontWeight.w600,
                 ),
@@ -68,7 +70,7 @@ class AmountEnterCard extends ConsumerWidget {
                       amountController.updateState(amount: num.tryParse(value));
                     },
                     style: TextStyle(
-                      color: AppColors.appBlack,
+                      color: Theme.of(context).colorScheme.onSurface,
                       fontSize: 40,
                       fontWeight: FontWeight.w900,
                     ),
@@ -79,7 +81,9 @@ class AmountEnterCard extends ConsumerWidget {
                       hintText: ref.watch(createExpensePrrovider).amount == 0
                           ? '00'
                           : ref.watch(createExpensePrrovider).amount.toString(),
-                      hintStyle: TextStyle(color: AppColors.appBlack),
+                      hintStyle: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                     ),
                   ),
                 ),

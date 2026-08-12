@@ -1,15 +1,14 @@
 
 
-import 'package:finance/controller/home_screen/home_screen_state.dart';
+
 import 'package:finance/core/themes/colors.dart';
 import 'package:finance/presentation/common_widgets/glass_container.dart';
 import 'package:finance/presentation/screens/profile_screen/screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileIcon extends StatelessWidget {
-  const ProfileIcon({super.key, required this.homeState});
+  const ProfileIcon({super.key,});
 
-  final HomeState homeState;
 
   @override
   Widget build(BuildContext context) {

@@ -115,8 +115,8 @@ class MonthlyAllTransactionScreen extends ConsumerWidget {
                   border: Border(
                     left: BorderSide(color: AppColors.appGreen, width: 5),
                     right: BorderSide(color: AppColors.appGreen, width: .2),
-                    top: BorderSide(color: AppColors.appGreen, width: 1),
-                    bottom: BorderSide(color: AppColors.appGreen, width: 3),
+                    top: BorderSide(color: AppColors.appGreen, width: .2),
+                    bottom: BorderSide(color: AppColors.appGreen, width: .2),
                   ),
                 ),
                 child: Padding(
@@ -183,8 +183,8 @@ class MonthlyAllTransactionScreen extends ConsumerWidget {
                   border: Border(
                     left: BorderSide(color: AppColors.appRed, width: 5),
                     right: BorderSide(color: AppColors.appRed, width: .2),
-                    top: BorderSide(color: AppColors.appRed, width: 1),
-                    bottom: BorderSide(color: AppColors.appRed, width: 3),
+                    top: BorderSide(color: AppColors.appRed, width: .2),
+                    bottom: BorderSide(color: AppColors.appRed, width: .2),
                   ),
                 ),
                 child: Padding(

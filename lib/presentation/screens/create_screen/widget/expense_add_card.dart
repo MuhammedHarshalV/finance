@@ -19,11 +19,11 @@ class ExpenseAddCard extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: AppColors.appBottomNavColor,
+        color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.03),
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -59,7 +59,7 @@ class ExpenseAddCard extends ConsumerWidget {
     return Text(
       text,
       style: TextStyle(
-        color:  AppColors.appBlack,
+        color: Theme.of(context).colorScheme.onSurface,
         fontSize: 13,
         fontWeight: FontWeight.w500,
       ),

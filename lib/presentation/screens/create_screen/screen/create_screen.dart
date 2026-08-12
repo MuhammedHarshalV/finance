@@ -5,6 +5,7 @@ import 'package:finance/core/themes/colors.dart';
 import 'package:finance/presentation/common_widgets/glass_container.dart';
 import 'package:finance/presentation/screens/create_screen/widget/amount_enter_card.dart';
 import 'package:finance/presentation/screens/create_screen/widget/expense_add_card.dart';
+import 'package:finance/presentation/screens/home_screen/widget/profile_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -86,25 +87,7 @@ class NewTransactionScreen extends ConsumerWidget {
               ],
             ),
             actions: [
-              GlassContainer(
-                border: Border.all(color: AppColors.appWhite),
-                borderRadius: BorderRadius.circular(360),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    spacing: 10,
-                    children: [
-                      GestureDetector(
-                        onTap: () {},
-                        child: Icon(
-                          Icons.person_2_outlined,
-                          color: AppColors.appWhite,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+             ProfileIcon(),
               SizedBox(width: 15),
             ],
           ),

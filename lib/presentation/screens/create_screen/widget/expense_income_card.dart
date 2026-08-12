@@ -13,6 +13,7 @@ class ExpenseIncomeCard extends ConsumerWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(30),
+        border: Border.all(color: Theme.of(context).colorScheme.onSurface),
       ),
       child: Padding(
         padding: const EdgeInsets.all(0),
