@@ -86,10 +86,7 @@ class NewTransactionScreen extends ConsumerWidget {
                 ),
               ],
             ),
-            actions: [
-             ProfileIcon(),
-              SizedBox(width: 15),
-            ],
+            actions: [ProfileIcon()],
           ),
           SliverToBoxAdapter(
             child: Padding(

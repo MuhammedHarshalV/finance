@@ -129,29 +129,31 @@ class HomeScreen extends ConsumerWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      InkWell(
-                        focusColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  MonthlyAllTransactionScreen(),
+                      homeState.expenseList.isEmpty
+                          ? SizedBox.shrink()
+                          : InkWell(
+                              focusColor: Colors.transparent,
+                              splashColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        MonthlyAllTransactionScreen(),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                "View All",
+                                style: TextStyle(
+                                  color: AppColors.appGreen,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ),
-                          );
-                        },
-                        child: Text(
-                          "View All",
-                          style: TextStyle(
-                            color: AppColors.appGreen,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ],

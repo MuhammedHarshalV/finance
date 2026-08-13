@@ -6,6 +6,7 @@ import 'package:finance/presentation/screens/create_screen/widget/expense_income
 import 'package:finance/presentation/screens/create_screen/widget/priority_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ExpenseAddCard extends ConsumerWidget {
   ExpenseAddCard({super.key});
@@ -60,7 +61,7 @@ class ExpenseAddCard extends ConsumerWidget {
       text,
       style: TextStyle(
         color: Theme.of(context).colorScheme.onSurface,
-        fontSize: 13,
+        fontSize: 13.sp,
         fontWeight: FontWeight.w500,
       ),
     );

@@ -2,6 +2,7 @@ import 'package:finance/controller/create_expense_controller/create_expense_cont
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DescriptionCard extends ConsumerWidget {
   const DescriptionCard({super.key});
@@ -12,7 +13,7 @@ class DescriptionCard extends ConsumerWidget {
         .read(createExpensePrrovider.notifier)
         .descriptionController;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       decoration: BoxDecoration(
         border: Border.all(color: Theme.of(context).colorScheme.onSurface),
         borderRadius: BorderRadius.circular(12),
@@ -29,7 +30,7 @@ class DescriptionCard extends ConsumerWidget {
           maxLines: 3,
           style: TextStyle(
             color: Theme.of(context).colorScheme.onSurface,
-            fontSize: 15,
+            fontSize: 15.sp,
           ),
           decoration: InputDecoration(
             border: InputBorder.none,
@@ -38,7 +39,7 @@ class DescriptionCard extends ConsumerWidget {
                 : ref.watch(createExpensePrrovider).description,
             hintStyle: TextStyle(
               color: Theme.of(context).colorScheme.onSurface,
-              fontSize: 15,
+              fontSize: 15.sp,
             ),
           ),
         ),

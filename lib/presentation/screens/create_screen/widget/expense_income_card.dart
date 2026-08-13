@@ -1,6 +1,7 @@
 import 'package:finance/controller/create_expense_controller/create_expense_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ExpenseIncomeCard extends ConsumerWidget {
   const ExpenseIncomeCard({super.key});
@@ -44,7 +45,7 @@ class ExpenseIncomeCard extends ConsumerWidget {
                   ),
                   child: Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(10),
+                      padding: EdgeInsets.all(10.h),
                       child: Text(
                         'Expense',
                         style: TextStyle(
@@ -83,7 +84,7 @@ class ExpenseIncomeCard extends ConsumerWidget {
                   ),
                   child: Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(10),
+                      padding: EdgeInsets.all(10.h),
                       child: Text(
                         'Income',
                         style: TextStyle(

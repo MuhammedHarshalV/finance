@@ -1,7 +1,7 @@
-
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GlassContainer extends StatelessWidget {
   final Widget child;
@@ -58,14 +58,14 @@ class GlassContainer extends StatelessWidget {
       height: height,
       margin: margin,
       child: ClipRRect(
-        borderRadius: borderRadius ?? BorderRadius.circular(16),
+        borderRadius: borderRadius ?? BorderRadius.circular(16.r),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
           child: Container(
             padding: padding,
             decoration: BoxDecoration(
               color: color,
-              borderRadius: borderRadius ?? BorderRadius.circular(16),
+              borderRadius: borderRadius ?? BorderRadius.circular(16.r),
               border: finalBorder,
             ),
             child: child,

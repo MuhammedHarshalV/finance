@@ -2,6 +2,7 @@ import 'package:finance/controller/bottom_nav_controller/bottom_nav_controller.d
 import 'package:finance/core/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BottomNavItems extends ConsumerWidget {
   final IconData icon;
@@ -37,8 +38,8 @@ class BottomNavItems extends ConsumerWidget {
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOut,
           width: selected ? 110 : 60,
-          height: 35,
-          margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+          height: 35.h,
+          margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 8.w),
           decoration: BoxDecoration(
             color: selected ? AppColors.appBottomNavColor : Colors.transparent,
             borderRadius: BorderRadius.circular(10),

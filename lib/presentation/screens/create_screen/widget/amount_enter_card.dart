@@ -1,8 +1,9 @@
 import 'package:finance/controller/create_expense_controller/create_expense_controller.dart';
-import 'package:finance/core/themes/colors.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AmountEnterCard extends ConsumerWidget {
   const AmountEnterCard({super.key});
@@ -15,7 +16,7 @@ class AmountEnterCard extends ConsumerWidget {
         .amountController;
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: 10.h),
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(16),
@@ -35,7 +36,7 @@ class AmountEnterCard extends ConsumerWidget {
             'AMOUNT',
             style: TextStyle(
               color: Theme.of(context).colorScheme.onSurface,
-              fontSize: 12,
+              fontSize: 12.sp,
               fontWeight: FontWeight.bold,
               letterSpacing: 1.5,
             ),
@@ -49,11 +50,11 @@ class AmountEnterCard extends ConsumerWidget {
                 '₹',
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onSurface,
-                  fontSize: 40,
+                  fontSize: 40.sp,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: 8.h),
               IntrinsicWidth(
                 child: TapRegion(
                   onTapOutside: (_) {
@@ -71,7 +72,7 @@ class AmountEnterCard extends ConsumerWidget {
                     },
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurface,
-                      fontSize: 40,
+                      fontSize: 40.sp,
                       fontWeight: FontWeight.w900,
                     ),
                     decoration: InputDecoration(
@@ -83,6 +84,7 @@ class AmountEnterCard extends ConsumerWidget {
                           : ref.watch(createExpensePrrovider).amount.toString(),
                       hintStyle: TextStyle(
                         color: Theme.of(context).colorScheme.onSurface,
+                        fontSize: 40.sp,
                       ),
                     ),
                   ),

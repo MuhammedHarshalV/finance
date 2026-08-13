@@ -2,6 +2,7 @@ import 'package:finance/controller/create_expense_controller/create_expense_cont
 import 'package:finance/core/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PriorityCard extends ConsumerWidget {
   const PriorityCard({super.key});
@@ -39,7 +40,7 @@ class PriorityCard extends ConsumerWidget {
                 ),
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: EdgeInsets.all(10.h),
                     child: Text(
                       'Low',
                       style: TextStyle(
@@ -75,7 +76,7 @@ class PriorityCard extends ConsumerWidget {
                 ),
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: EdgeInsets.all(10.h),
                     child: Text(
                       'Medium',
                       style: TextStyle(
@@ -109,7 +110,7 @@ class PriorityCard extends ConsumerWidget {
                 ),
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: EdgeInsets.all(10.h),
                     child: Text(
                       'High',
                       style: TextStyle(
