@@ -246,6 +246,7 @@ class MonthlyAllTransactionScreen extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             sliver: SliverList.separated(
               itemBuilder: (context, index) => ExpenseIncomeCards(index: index),
+              // ignore: unnecessary_underscores
               separatorBuilder: (_, __) => const SizedBox(height: 10),
               itemCount: homeState.expenseList.length,
             ),

@@ -9,12 +9,12 @@ class ProfileState {
   final String gender;
 
   const ProfileState({
-    this.name = 'Muhammed Harshal',
-    this.email = 'harshal@gmail.com',
-    this.phone = '+91 9876543210',
+    this.name = 'No name',
+    this.email = 'example@gmail.com',
+    this.phone = '+91 3445423476',
     this.profileImage = '',
     this.location = 'Kerala, India',
-    this.bio = 'Flutter Developer',
+    this.bio = 'No Description',
     this.dateOfBirth = '01 January 2000',
     this.gender = 'Male',
   });

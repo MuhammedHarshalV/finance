@@ -90,7 +90,7 @@ class _AnimattedSensexCardState extends ConsumerState<AnimattedSensexCard>
               borderRadius: BorderRadius.circular(24),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
+                  color: Colors.black.withValues(alpha: 0.2),
                   blurRadius: 10,
                   offset: const Offset(0, 4),
                 ),
@@ -166,7 +166,7 @@ class _AnimattedSensexCardState extends ConsumerState<AnimattedSensexCard>
                         vertical: 8,
                       ),
                       borderRadius: BorderRadius.circular(20),
-                      color: Colors.black.withOpacity(.35),
+                      color: Colors.black.withValues(alpha: .35),
                       blur: 1,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -276,9 +276,9 @@ class _AnimattedSensexCardState extends ConsumerState<AnimattedSensexCard>
     return GlassContainer(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
       // decoration: BoxDecoration(
-      color: Colors.black.withOpacity(0.2), // Glassmorphism effect
+      color: Colors.black.withValues(alpha: 0.2), // Glassmorphism effect
       borderRadius: BorderRadius.circular(16),
-      border: Border.all(color: Colors.white.withOpacity(0.3), width: 1),
+      border: Border.all(color: Colors.white.withValues(alpha: 0.3), width: 1),
       blur: .1,
       // ),
       child: Column(
@@ -287,7 +287,7 @@ class _AnimattedSensexCardState extends ConsumerState<AnimattedSensexCard>
           Text(
             title,
             style: TextStyle(
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.white.withValues(alpha: 0.8),
               fontSize: 12,
               fontWeight: FontWeight.w600,
               letterSpacing: 0.5,
@@ -318,12 +318,12 @@ class _AnimattedSensexCardState extends ConsumerState<AnimattedSensexCard>
     return ElevatedButton.icon(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white.withOpacity(0.15),
+        backgroundColor: Colors.white.withValues(alpha: 0.15),
         foregroundColor: Colors.white,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
-          side: BorderSide(color: Colors.white.withOpacity(0.3)),
+          side: BorderSide(color: Colors.white.withValues(alpha: 0.3)),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       ),

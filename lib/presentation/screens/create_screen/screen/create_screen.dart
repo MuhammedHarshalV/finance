@@ -132,11 +132,13 @@ class NewTransactionScreen extends ConsumerWidget {
                           priority: createExpenseState.priority,
                         );
                         await homeController.fetchExpenses();
+                        // ignore: use_build_context_synchronously
                         Navigator.pop(context);
                         createExpenseController.reset();
                       } else {
                         await createExpenseController.saveExpenseOrIncome();
                         await homeController.fetchExpenses();
+                        // ignore: use_build_context_synchronously
                         Navigator.pop(context);
                         createExpenseController.reset();
                       }

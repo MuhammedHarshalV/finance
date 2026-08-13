@@ -57,7 +57,7 @@ class HomeScreen extends ConsumerWidget {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Icon(
@@ -94,7 +94,7 @@ class HomeScreen extends ConsumerWidget {
                     style: TextStyle(
                       color: Theme.of(
                         context,
-                      ).colorScheme.onSurface.withOpacity(.6),
+                      ).colorScheme.onSurface.withValues(alpha: .6),
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.2,
@@ -164,6 +164,7 @@ class HomeScreen extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             sliver: SliverList.separated(
               itemBuilder: (context, index) => ExpenseIncomeCards(index: index),
+              // ignore: unnecessary_underscores
               separatorBuilder: (_, __) => const SizedBox(height: 10),
               itemCount: homeState.expenseList.length >= 10
                   ? 10

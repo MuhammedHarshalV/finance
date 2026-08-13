@@ -28,14 +28,14 @@ class ProfileHeader extends ConsumerWidget {
                 border: Border.all(
                   color: Theme.of(
                     context,
-                  ).colorScheme.onSurface.withOpacity(.3),
+                  ).colorScheme.onSurface.withValues(alpha: .3),
                   width: 4,
                 ),
                 boxShadow: [
                   BoxShadow(
                     color: Theme.of(
                       context,
-                    ).colorScheme.onSurface.withOpacity(.10),
+                    ).colorScheme.onSurface.withValues(alpha: .10),
                     blurRadius: 10,
                     offset: const Offset(0, 3),
                   ),
@@ -50,9 +50,7 @@ class ProfileHeader extends ConsumerWidget {
                     : Icon(
                         Icons.person,
                         size: 55,
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.onSurface.withOpacity(.3),
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
               ),
             ),
@@ -113,7 +111,7 @@ class ProfileHeader extends ConsumerWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 14,
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(.5),
+            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .5),
           ),
         ),
       ],

@@ -21,7 +21,7 @@ class GlassContainer extends StatelessWidget {
   final BorderSide? rightBorder;
 
   const GlassContainer({
-    Key? key,
+    super.key,
     required this.child,
     this.width,
     this.height,
@@ -35,7 +35,7 @@ class GlassContainer extends StatelessWidget {
     this.bottomBorder,
     this.leftBorder,
     this.rightBorder,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

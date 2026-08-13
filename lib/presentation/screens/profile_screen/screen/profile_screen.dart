@@ -220,7 +220,7 @@ class ProfileScreen extends ConsumerWidget {
                             height: 1.5,
                             color: Theme.of(
                               context,
-                            ).colorScheme.onSurface.withOpacity(.7),
+                            ).colorScheme.onSurface.withValues(alpha: .7),
                           ),
                         ),
                       ],
@@ -273,7 +273,7 @@ class _SectionCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(14),
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(.4),
+            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .4),
             blurRadius: 10,
             offset: const Offset(0, 3),
           ),
@@ -373,7 +373,7 @@ class _ProfileInfo extends StatelessWidget {
         if (showDivider)
           Divider(
             height: 1,
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(.2),
+            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .2),
           ),
       ],
     );

@@ -27,7 +27,7 @@ class ProfileIcon extends StatelessWidget {
 
           border: Border.all(color: AppColors.appWhite, width: 1.5),
           borderRadius: BorderRadius.circular(360),
-          color: Colors.white.withOpacity(0.15),
+          color: Colors.white.withValues(alpha: 0.15),
           child: ClipOval(
             child: Icon(
               Icons.person_2_outlined,

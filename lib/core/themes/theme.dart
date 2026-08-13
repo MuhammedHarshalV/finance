@@ -7,16 +7,14 @@ class Apptheme {
     scaffoldBackgroundColor: AppColors.appWhite,
     colorScheme: const ColorScheme.light(
       primary: Colors.blue,
-      onSurface: Colors.black, // Main text color
-      onBackground: Colors.black,
+      onSurface: Colors.black,
     ),
   );
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: AppColors.appBlack,
     colorScheme: const ColorScheme.dark(
       primary: Colors.blue,
-      onSurface: Colors.white, // Main text color
-      onBackground: Colors.white,
+      onSurface: Colors.white,
     ),
   );
 }

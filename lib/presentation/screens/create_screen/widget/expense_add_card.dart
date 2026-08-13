@@ -1,5 +1,4 @@
-import 'package:finance/controller/create_expense_controller/create_expense_controller.dart';
-import 'package:finance/core/themes/colors.dart';
+
 import 'package:finance/presentation/screens/create_screen/widget/category_card.dart';
 import 'package:finance/presentation/screens/create_screen/widget/description_card.dart';
 import 'package:finance/presentation/screens/create_screen/widget/expense_income_card.dart';
@@ -9,13 +8,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ExpenseAddCard extends ConsumerWidget {
-  ExpenseAddCard({super.key});
+  const ExpenseAddCard({super.key});
   // PriorityType priority = PriorityType.medium;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final expenseState = ref.watch(createExpensePrrovider);
-    final expenseController = ref.read(createExpensePrrovider.notifier);
+    
 
     return Container(
       padding: const EdgeInsets.all(24),
@@ -24,7 +22,7 @@ class ExpenseAddCard extends ConsumerWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
+            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
